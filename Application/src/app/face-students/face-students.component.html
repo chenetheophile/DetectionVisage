@@ -1,0 +1,13 @@
+<h2 class="Title">{{ faceStudent.title }}</h2>
+<div class="global-section">
+    <div class="under-section2"><img [src]="faceStudent.imageUrl" [alt]="faceStudent.title"></div>
+    <div class="under-section1">
+        <p>Employé depuis {{ faceStudent.createdDate }}</p>
+        <p>{{ faceStudent.description }}</p>
+        <p>
+            <button (click)="onSnap()">{{ textButton }}</button>
+            🤌 {{ faceStudent.snaps }}
+            <button onclick="exec('python MYSCRIPT.py');">Authentification</button>
+        </p>
+    </div>
+</div>

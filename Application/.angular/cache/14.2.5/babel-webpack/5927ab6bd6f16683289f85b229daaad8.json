@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class FaceStudent {\n  constructor(title, description, imageUrl, createdDate, snaps) {\n    this.title = title;\n    this.description = description;\n    this.imageUrl = imageUrl;\n    this.createdDate = createdDate;\n    this.snaps = snaps;\n  }\n\n}","map":null,"metadata":{},"sourceType":"module"}
