@@ -1,3 +1,4 @@
+from tkinter.font import names
 import cv2
 import dlib
 import numpy as np
@@ -13,23 +14,23 @@ def lectureArgument(argv):
     Définit les arguments par défaut et les remplacent ensuite par les arguments passés à la commande.
     """
     root=os.path.dirname(os.path.realpath(__file__))
-    img_path=root+"../DetectionVisage/img.jpg"
-    model_path=root+'/modelDetectionVisage.h5'
     try:
-        opts, args = getopt.getopt(argv,"hi:m:",["img_path=","model_path"])
+        opts, args = getopt.getopt(argv,"hs:",["show_face="])
+        show=False
     except getopt.GetoptError as e:
-        print( 'inference.py -i <img_path> -m <model_path>')
+        print( 'facial_recognition.py -s <show_face>')
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print( 'inference.py -i <img_path> -m <model_path>')
+            print( 'facial_recognition.py -s <show_face>')
             sys.exit()
-        elif opt in ("-i", "--img_path"):
-            img_path=arg
-        elif opt in ("-m","--model_path"):
-            model_path=arg
-    return img_path,model_path
+        elif opt in ("-s", "--show_face"):
+            show=True
+    return show
+
+
 def detectVisage(args):
+    show=lectureArgument(args)
     nb_essai=0
     name="Unknown"
     face_to_encode_path=os.path.dirname(os.path.realpath(__file__))+'/../DetectionVisage/known_faces/'
@@ -46,24 +47,19 @@ def detectVisage(args):
         image = cv2.imread(file_)
         face_encoded = encode_face(image)[0][0]
         known_face_encodings.append(face_encoded)
-
-    # print('[INFO] Faces well imported')
-    # print('[INFO] Starting Webcam...')
     video_capture = cv2.VideoCapture(0)
-    # print('[INFO] Webcam well started')
-    # print('[INFO] Detecting...')
+    _, frame = video_capture.read()
+    name=easy_face_reco(frame, known_face_encodings, known_face_names,show)
     while nb_essai<3 and name=="Unknown":
-        _, frame = video_capture.read()
-        name=easy_face_reco(frame, known_face_encodings, known_face_names)
         nb_essai+=1
         if name=="Unknown":
             time.sleep(1)
-        # cv2.imshow('Easy Facial Recognition App', frame)
-        # if cv2.waitKey(1) & 0xFF == ord('q'):
-        #     break
-    # print('[INFO] Stopping System as '+name+" has been detected")
+        name=easy_face_reco(frame, known_face_encodings, known_face_names,show)
+    if show:
+        cv2.imshow('Easy Facial Recognition App', frame)
+        if cv2.waitKey(0) & 0xFF == ord('q'):
+            cv2.destroyAllWindows()
     video_capture.release()
-    cv2.destroyAllWindows()
     return name
 
 def transform(image, face_locations):
@@ -90,7 +86,8 @@ def encode_face(image):
     return face_encodings_list, face_locations, landmarks_list
 
 
-def easy_face_reco(frame, known_face_encodings, known_face_names):
+def easy_face_reco(frame, known_face_encodings, known_face_names,show):
+    name="Unknown"
     rgb_small_frame = frame[:, :, ::-1]
     # ENCODING FACE
     face_encodings_list, face_locations_list, landmarks_list = encode_face(rgb_small_frame)
@@ -109,19 +106,17 @@ def easy_face_reco(frame, known_face_encodings, known_face_names):
                 result.append(False)
         if True in result:
             first_match_index = result.index(True)
-            return known_face_names[first_match_index]
-    return "Unknown"
-        # face_names.append(name)
+            name= known_face_names[first_match_index]
+    if show:
+        for (top, right, bottom, left), name in zip(face_locations_list, face_names):
+            cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
+            cv2.rectangle(frame, (left, bottom - 30), (right, bottom), (0, 255, 0), cv2.FILLED)
+            cv2.putText(frame, name, (left + 2, bottom - 2), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
 
-    # for (top, right, bottom, left), name in zip(face_locations_list, face_names):
-    #     cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
-    #     cv2.rectangle(frame, (left, bottom - 30), (right, bottom), (0, 255, 0), cv2.FILLED)
-    #     cv2.putText(frame, name, (left + 2, bottom - 2), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
-
-    # for shape in landmarks_list:
-    #     for (x, y) in shape:
-    #         cv2.circle(frame, (x, y), 1, (255, 0, 255), -1)S
-
+        for shape in landmarks_list:
+            for (x, y) in shape:
+                cv2.circle(frame, (x, y), 1, (255, 0, 255), -1)
+    return name
 if __name__=="__main__":
     root=os.path.dirname(os.path.realpath(__file__))
     pose_predictor_68_point = dlib.shape_predictor(root+"/pretrained_model/shape_predictor_68_face_landmarks.dat")
@@ -129,3 +124,4 @@ if __name__=="__main__":
     face_encoder = dlib.face_recognition_model_v1(root+"/pretrained_model/dlib_face_recognition_resnet_model_v1.dat")
     face_detector = dlib.get_frontal_face_detector()
     print(detectVisage(sys.argv[1:]))
+    # detectVisage(sys.argv[1:])
