@@ -1,4 +1,3 @@
-from tkinter.font import names
 import cv2
 import dlib
 import numpy as np
@@ -16,7 +15,7 @@ def lectureArgument(argv):
     root=os.path.dirname(os.path.realpath(__file__))
     try:
         opts, args = getopt.getopt(argv,"hs:",["show_face="])
-        show=False
+        show=True
     except getopt.GetoptError as e:
         print( 'facial_recognition.py -s <show_face>')
         sys.exit(2)
@@ -56,10 +55,14 @@ def detectVisage(args):
             time.sleep(1)
         name=easy_face_reco(frame, known_face_encodings, known_face_names,show)
     if show:
-        cv2.imshow('Easy Facial Recognition App', frame)
-        if cv2.waitKey(0) & 0xFF == ord('q'):
-            cv2.destroyAllWindows()
+        while True:
+            _, frame = video_capture.read()
+            easy_face_reco(frame, known_face_encodings, known_face_names,show)
+            cv2.imshow('Easy Facial Recognition App', frame)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
     video_capture.release()
+    cv2.destroyAllWindows()
     return name
 
 def transform(image, face_locations):
@@ -97,7 +100,7 @@ def easy_face_reco(frame, known_face_encodings, known_face_names,show):
             return np.empty((0))
         # CHECK DISTANCE BETWEEN KNOWN FACES AND FACES DETECTED
         vectors = np.linalg.norm(known_face_encodings - face_encoding, axis=1)
-        tolerance = 0.6
+        tolerance = 0.35
         result = []
         for vector in vectors:
             if vector <= tolerance:
@@ -107,15 +110,16 @@ def easy_face_reco(frame, known_face_encodings, known_face_names,show):
         if True in result:
             first_match_index = result.index(True)
             name= known_face_names[first_match_index]
+            face_names.append(name)
     if show:
         for (top, right, bottom, left), name in zip(face_locations_list, face_names):
             cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
             cv2.rectangle(frame, (left, bottom - 30), (right, bottom), (0, 255, 0), cv2.FILLED)
             cv2.putText(frame, name, (left + 2, bottom - 2), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1)
 
-        for shape in landmarks_list:
-            for (x, y) in shape:
-                cv2.circle(frame, (x, y), 1, (255, 0, 255), -1)
+        # for shape in landmarks_list:
+        #     for (x, y) in shape:
+        #         cv2.circle(frame, (x, y), 1, (255, 0, 255), -1)
     return name
 if __name__=="__main__":
     root=os.path.dirname(os.path.realpath(__file__))
