@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FaceStudent } from './models/face-students.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,9 @@ export class AppComponent implements OnInit {
   myOtherFace1!: FaceStudent;
   myOtherFace2!: FaceStudent;
   myOtherFace3!: FaceStudent;
+  constructor(public router: Router) {
 
+  }
   ngOnInit() {
     this.myFace = new FaceStudent(
       'Théophile Chêne',

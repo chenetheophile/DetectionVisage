@@ -1,8 +1,7 @@
-<app-face-students [faceStudent]="myFace"></app-face-students>
-<app-face-students [faceStudent]="myOtherFace1"></app-face-students>
-<app-face-students [faceStudent]="myOtherFace2"></app-face-students>
-<app-face-students [faceStudent]="myOtherFace3"></app-face-students>
-
-
-
-
+<div class="content-students">
+    <app-face-students *ngIf="router.url === '/'" [faceStudent]="myFace"></app-face-students>
+    <app-face-students *ngIf="router.url === '/'" [faceStudent]="myOtherFace1"></app-face-students>
+    <app-face-students *ngIf="router.url === '/'" [faceStudent]="myOtherFace2"></app-face-students>
+    <app-face-students *ngIf="router.url === '/'" [faceStudent]="myOtherFace3"></app-face-students>
+</div>
+<router-outlet></router-outlet>
