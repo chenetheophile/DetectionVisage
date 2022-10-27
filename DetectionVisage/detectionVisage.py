@@ -10,7 +10,10 @@ if __name__=="__main__":
 
     camera=cv2.VideoCapture(0)
     nb_essai=0
-    root=os.path.dirname(os.path.realpath(__file__))
+
+    root=os.path.dirname(os.path.realpath(cv2.__file__))
+
+
     while nb_essai<3:
         _,frame=camera.read()
         gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
