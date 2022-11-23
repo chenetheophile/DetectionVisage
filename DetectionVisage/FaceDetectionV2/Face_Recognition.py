@@ -1,7 +1,3 @@
-
-
-
-
 # Importing libraries
 import tensorflow as tf
 import numpy as np
@@ -98,7 +94,7 @@ model.summary()
 
 # Training the model
 
-model.fit( x_train , y_train , epochs=2 , batch_size=50 , validation_data=( x_test , y_test ) )
+model.fit( x_train , y_train , epochs=2, batch_size=50 , validation_data=( x_test , y_test ) )
 
 # Generating keypoints for images
 import matplotlib.pyplot as plt
@@ -111,5 +107,4 @@ for i in range(1, 6):
     fig.add_subplot(1, 10, i)
     plt.imshow(sample_image.T, cmap='gray')
     plt.scatter(pred[:, 0], pred[:, 1], c='yellow')
-
 plt.show()
