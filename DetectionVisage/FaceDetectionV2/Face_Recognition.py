@@ -5,7 +5,9 @@
 '''####### IMAGE PRE-PROCESSING for TRAINING and TESTING data #######'''
 
 # Specifying the folder where images are present
-TrainingImagePath='/Users/farukh/Python Case Studies/Face Images/Final Training Images'
+#TrainingImagePath='/Face_Images/Final_Training_Images'
+TrainingImagePath='/Face_images/Final_Training_Images'
+
 
 from keras.preprocessing.image import ImageDataGenerator
 # Understand more about ImageDataGenerator at below link
