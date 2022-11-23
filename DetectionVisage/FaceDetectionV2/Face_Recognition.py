@@ -1,30 +1,43 @@
 # Deep Learning CNN model to recognize face
-####### IMAGE PRE-PROCESSING for TRAINING and TESTING data #######
-import os
+'''This script uses a database of images and creates CNN model on top of it to test
+   if the given image is recognized correctly or not'''
+
+'''####### IMAGE PRE-PROCESSING for TRAINING and TESTING data #######'''
 
 # Specifying the folder where images are present
+TrainingImagePath='/Users/farukh/Python Case Studies/Face Images/Final Training Images'
 
-#TrainingImagePath='/Face_Images/Final_Training_Images'
-root=os.path.dirname(os.path.realpath(__file__))
-TrainingImagePath=root+'/Face_Images/Final_Training_Images/'
+from keras.preprocessing.image import ImageDataGenerator
+# Understand more about ImageDataGenerator at below link
+# https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
 
-# importing packages :
-import tensorflow as tf
-import numpy as np
+# Defining pre-processing transformations on raw images of training data
+# These hyper parameters helps to generate slightly twisted versions
+# of the original image, which leads to a better model, since it learns
+# on the good and bad mix of images
+train_datagen = ImageDataGenerator(
+        shear_range=0.1,
+        zoom_range=0.1,
+        horizontal_flip=True)
 
-# Loading the data
-import os
+# Defining pre-processing transformations on raw images of testing data
+# No transformations are done on the testing images
+test_datagen = ImageDataGenerator()
 
-import tensorflow as tf
-tf.keras.utils.get_file(origin="https://github.com/shubham0204/Dataset_Archives/blob/master/face_landmarks_cleaned.zip?raw=true",fname='train.csv',untar=False, extract=False)
+# Generating the Training Data
+training_set = train_datagen.flow_from_directory(
+        TrainingImagePath,
+        target_size=(64, 64),
+        batch_size=32,
+        class_mode='categorical')
 
 
-# Normalising the images as keypoints
+# Generating the Testing Data
+test_set = test_datagen.flow_from_directory(
+        TrainingImagePath,
+        target_size=(64, 64),
+        batch_size=32,
+        class_mode='categorical')
 
-x_train = np.load("face_landmarks_cleaned/x_train.npy") / 255
-y_train = np.load("face_landmarks_cleaned/y_train.npy") / 96
-x_test = np.load("face_landmarks_cleaned/x_test.npy") / 255
-y_test = np.load("face_landmarks_cleaned/y_test.npy") / 96
-
-y_train = np.reshape(y_train,( -1 , 1 , 1 , 30 ))
-y_test = np.reshape(y_test,( -1 , 1 , 1 , 30 ))
+# Printing class labels for each face
+test_set.class_indices
