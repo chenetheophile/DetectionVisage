@@ -30,5 +30,3 @@ if __name__=="__main__":
         nb_essai+=1
         time.sleep(1)
     camera.release()
-
-    #testing commit
