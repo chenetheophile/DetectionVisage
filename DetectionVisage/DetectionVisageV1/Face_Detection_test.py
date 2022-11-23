@@ -5,12 +5,12 @@ import cv2
 
 #https://www.youtube.com/watch?v=N_W4EYtsa10
 
-#IMAGES_PATH = "../Data/images/"
+#IMAGES_PATH = "../Data_images/images/"
 import random
 root=os.path.dirname(os.path.realpath(cv2.__file__))
-#IMAGES_PATH = "../DetectionVisage/Data/images/"
-#IMAGES_PATH = "/DetectionVisage/Data/images/"
-IMAGES_PATH = "C:/Users/Meatisdelicious/Documents/5_Cours_ingé3/7_Projet_Fin_Annee/DetectionVisage/Data/images/"
+#IMAGES_PATH = "../DetectionVisage/Data_images/images/"
+#IMAGES_PATH = "/DetectionVisage/Data_images/images/"
+IMAGES_PATH = "C:/Users/Meatisdelicious/Documents/5_Cours_ingé3/7_Projet_Fin_Annee/DetectionVisage/Data_images/images/"
 
 number_images=1
 cap = cv2.VideoCapture(0) #gaffe au port de la camera mdrrr
