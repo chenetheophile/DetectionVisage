@@ -15,8 +15,8 @@ y_train = np.load("Face_Images/y_train.npy") / 96
 x_test = np.load("Face_Images/x_test.npy") / 255
 y_test = np.load("Face_Images/y_test.npy") / 96
 
-y_train = np.reshape( y_train , ( -1 , 1 , 1 , 30 ))
-y_test = np.reshape( y_test , ( -1 , 1 , 1 , 30 ))
+y_train = np.reshape(y_train,(-1,1,1,30))
+y_test = np.reshape(y_test,(-1,1,1,30))
 
 model_layers = [
     tf.keras.layers.SeparableConv2D(128, input_shape=(96, 96, 1), kernel_size=(5, 5), strides=1),
@@ -93,8 +93,7 @@ model.compile(loss=tf.keras.losses.mean_squared_error, optimizer=tf.keras.optimi
 model.summary()
 
 # Training the model
-
-model.fit( x_train , y_train , epochs=2, batch_size=50 , validation_data=( x_test , y_test ) )
+model.fit(x_train,y_train,epochs=2,batch_size=50,validation_data=(x_test,y_test))
 
 # Generating keypoints for images
 import matplotlib.pyplot as plt
