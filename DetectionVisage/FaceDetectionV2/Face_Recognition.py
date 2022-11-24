@@ -7,7 +7,7 @@ root=os.path.dirname(os.path.realpath(__file__))
 img_path=root+"../DetectionVisage/img.jpg"
 
 # Loading data and normalizing it
-# We'll normalize the images as well as the keypoints. The shape of our input image will be
+# We'll normalize the images as well as the key points. The shape of our input image will be
 # ( 96 , 96 , 1 ) and the expected output will have a shape of ( 1 , 1 , 30 ).
 # The output is from a Conv2D layer rather than the Dense layer.
 x_train = np.load("Face_Images/x_train.npy") / 255
@@ -93,9 +93,13 @@ model.compile(loss=tf.keras.losses.mean_squared_error, optimizer=tf.keras.optimi
 model.summary()
 
 # Training the model
-model.fit(x_train,y_train,epochs=2,batch_size=50,validation_data=(x_test,y_test))
+model.fit(x_train,y_train,epochs=1,batch_size=50,validation_data=(x_test,y_test))
 
-# Generating keypoints for images
+# Printing model accuracy
+print('model accuracy on training data: ', np.round(model.evaluate(x_train, y_train, verbose=0)[1],4))
+print('model accuracy on test data: ', np.round(model.evaluate(x_test, y_test, verbose=0)[1],4))
+
+# Generating key points for images
 import matplotlib.pyplot as plt
 fig = plt.figure(figsize=(50, 50))
 for i in range(1, 6):
