@@ -103,6 +103,7 @@ model.fit(x_train, y_train, epochs=1, batch_size=50, validation_data=(x_test, y_
 #print("Classification Results:\n{}".format(metrics.classification_report(y_test, y_pred)))
 model.save('./model2.hdf5')
 
+
 # Generating keypoints for images
 import matplotlib.pyplot as plt
 fig = plt.figure(figsize=(50, 50))
