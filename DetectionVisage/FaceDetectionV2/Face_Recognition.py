@@ -95,7 +95,7 @@ model.summary()
 # basic parameters for training :
 #model.fit( x_train , y_train , epochs=30 , batch_size=50 , validation_data=( x_test , y_test ) )
 # Training the model test
-model.fit(x_train, y_train, epochs=2, batch_size=20, validation_data=(x_test, y_test))
+model.fit(x_train, y_train, epochs=6, batch_size=50, validation_data=(x_test, y_test))
 
 # Generating keypoints for images
 import matplotlib.pyplot as plt
@@ -109,5 +109,3 @@ for i in range(1, 6):
     plt.imshow(sample_image.T, cmap='gray')
     plt.scatter(pred[:, 0], pred[:, 1], c='yellow')
 plt.show()
-
-# another commit test
