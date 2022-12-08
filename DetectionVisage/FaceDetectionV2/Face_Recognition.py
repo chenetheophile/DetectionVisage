@@ -95,14 +95,15 @@ model.summary()
 # basic parameters for training :
 #model.fit( x_train , y_train , epochs=30 , batch_size=50 , validation_data=( x_test , y_test ) )
 # Training the model test
-model.fit(x_train, y_train, epochs=6, batch_size=50, validation_data=(x_test, y_test))
-model.save('./model1.hdf5')
+#model.fit(x_train, y_train, epochs=6, batch_size=50, validation_data=(x_test, y_test))
+#model.fit( x_train , y_train , epochs=1 , batch_size=50 , validation_data=( x_test , y_test ))
 
-#
+model.save('./model2.hdf5')
+
 # Generating keypoints for images
 import matplotlib.pyplot as plt
 fig = plt.figure(figsize=(50, 50))
-for i in range(1, 4):
+for i in range(1, 2):
     sample_image = np.reshape(x_test[i] * 255, (96, 96)).astype(np.uint8)
     pred = model.predict(x_test[i: i + 1]) * 96
     pred = pred.astype(np.int32)
