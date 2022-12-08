@@ -100,7 +100,7 @@ model.fit(x_train, y_train, epochs=6, batch_size=50, validation_data=(x_test, y_
 # Generating keypoints for images
 import matplotlib.pyplot as plt
 fig = plt.figure(figsize=(50, 50))
-for i in range(1, 6):
+for i in range(1, 4):
     sample_image = np.reshape(x_test[i] * 255, (96, 96)).astype(np.uint8)
     pred = model.predict(x_test[i: i + 1]) * 96
     pred = pred.astype(np.int32)
