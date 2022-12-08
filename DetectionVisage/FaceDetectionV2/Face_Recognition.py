@@ -1,6 +1,7 @@
 # Importing libraries
 import tensorflow as tf
 import numpy as np
+from sklearn import metrics
 import os
 
 #root=os.path.dirname(os.path.realpath(__file__))
@@ -96,8 +97,10 @@ model.summary()
 #model.fit( x_train , y_train , epochs=30 , batch_size=50 , validation_data=( x_test , y_test ) )
 # Training the model test
 #model.fit(x_train, y_train, epochs=6, batch_size=50, validation_data=(x_test, y_test))
-#model.fit( x_train , y_train , epochs=1 , batch_size=50 , validation_data=( x_test , y_test ))
+model.fit(x_train, y_train, epochs=1, batch_size=50, validation_data=(x_test, y_test))
 
+#print("Accuracy score:{:.2f}".format(metrics.accuracy_score(y_test, y_pred)))
+#print("Classification Results:\n{}".format(metrics.classification_report(y_test, y_pred)))
 model.save('./model2.hdf5')
 
 # Generating keypoints for images
