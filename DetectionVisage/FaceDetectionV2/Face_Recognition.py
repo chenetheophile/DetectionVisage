@@ -3,8 +3,8 @@ import tensorflow as tf
 import numpy as np
 import os
 
-root=os.path.dirname(os.path.realpath(__file__))
-img_path=root+"../DetectionVisage/img.jpg"
+root = os.path.dirname(os.path.realpath(__file__))
+img_path = root + "../DetectionVisage/img.jpg"
 
 # Loading data and normalizing it
 # We'll normalize the images as well as the key points. The shape of our input image will be
@@ -15,8 +15,8 @@ y_train = np.load("Face_Images/y_train.npy") / 96
 x_test = np.load("Face_Images/x_test.npy") / 255
 y_test = np.load("Face_Images/y_test.npy") / 96
 
-y_train = np.reshape(y_train,(-1,1,1,30))
-y_test = np.reshape(y_test,(-1,1,1,30))
+y_train = np.reshape(y_train, (-1, 1, 1, 30))
+y_test = np.reshape(y_test, (-1, 1, 1, 30))
 
 model_layers = [
     tf.keras.layers.SeparableConv2D(128, input_shape=(96, 96, 1), kernel_size=(5, 5), strides=1),
@@ -93,14 +93,15 @@ model.compile(loss=tf.keras.losses.mean_squared_error, optimizer=tf.keras.optimi
 model.summary()
 
 # Training the model
-model.fit(x_train,y_train,epochs=4,batch_size=50,validation_data=(x_test,y_test))
+model.fit(x_train, y_train, epochs=2, batch_size=20, validation_data=(x_test, y_test))
 
 # Printing model accuracy
-print('model accuracy on training data: ', np.round(model.evaluate(x_train, y_train, verbose=0)[1],4))
-print('model accuracy on test data: ', np.round(model.evaluate(x_test, y_test, verbose=0)[1],4))
+print('model accuracy on training data: ', np.round(model.evaluate(x_train, y_train, verbose=0)[1], 4))
+print('model accuracy on test data: ', np.round(model.evaluate(x_test, y_test, verbose=0)[1], 4))
 
 # Generating key points for images
 import matplotlib.pyplot as plt
+
 fig = plt.figure(figsize=(50, 50))
 for i in range(1, 6):
     sample_image = np.reshape(x_test[i] * 255, (96, 96)).astype(np.uint8)
@@ -111,5 +112,3 @@ for i in range(1, 6):
     plt.imshow(sample_image.T, cmap='gray')
     plt.scatter(pred[:, 0], pred[:, 1], c='yellow')
 plt.show()
-#
-#
