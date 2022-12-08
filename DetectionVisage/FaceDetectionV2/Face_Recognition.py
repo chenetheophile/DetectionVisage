@@ -96,7 +96,9 @@ model.summary()
 #model.fit( x_train , y_train , epochs=30 , batch_size=50 , validation_data=( x_test , y_test ) )
 # Training the model test
 model.fit(x_train, y_train, epochs=6, batch_size=50, validation_data=(x_test, y_test))
+model.save('./model1.hdf5')
 
+#
 # Generating keypoints for images
 import matplotlib.pyplot as plt
 fig = plt.figure(figsize=(50, 50))
