@@ -93,7 +93,7 @@ model.compile(loss=tf.keras.losses.mean_squared_error, optimizer=tf.keras.optimi
 model.summary()
 
 # Training the model
-model.fit(x_train,y_train,epochs=1,batch_size=50,validation_data=(x_test,y_test))
+model.fit(x_train,y_train,epochs=4,batch_size=50,validation_data=(x_test,y_test))
 
 # Printing model accuracy
 print('model accuracy on training data: ', np.round(model.evaluate(x_train, y_train, verbose=0)[1],4))
@@ -111,3 +111,5 @@ for i in range(1, 6):
     plt.imshow(sample_image.T, cmap='gray')
     plt.scatter(pred[:, 0], pred[:, 1], c='yellow')
 plt.show()
+#
+#
