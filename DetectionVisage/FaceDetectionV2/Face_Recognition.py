@@ -109,3 +109,5 @@ for i in range(1, 6):
     plt.imshow(sample_image.T, cmap='gray')
     plt.scatter(pred[:, 0], pred[:, 1], c='yellow')
 plt.show()
+
+# another commit test
