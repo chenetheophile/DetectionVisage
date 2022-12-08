@@ -100,7 +100,7 @@ def easy_face_reco(frame, known_face_encodings, known_face_names,show):
             return np.empty((0))
         # CHECK DISTANCE BETWEEN KNOWN FACES AND FACES DETECTED
         vectors = np.linalg.norm(known_face_encodings - face_encoding, axis=1)
-        tolerance = 0.35
+        tolerance = 0.3
         result = []
         for vector in vectors:
             if vector <= tolerance:
