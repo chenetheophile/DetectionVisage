@@ -101,7 +101,8 @@ model.fit(x_train, y_train, epochs=1, batch_size=50, validation_data=(x_test, y_
 
 #print("Accuracy score:{:.2f}".format(metrics.accuracy_score(y_test, y_pred)))
 #print("Classification Results:\n{}".format(metrics.classification_report(y_test, y_pred)))
-model.save('./model2.hdf5')
+#model.save('./model2.hdf5')
+
 
 
 # Generating keypoints for images
