@@ -13,3 +13,9 @@ python3 -m venv venv
 source venv/bin/activate
 # pour installer les librairies des requirements
 nano requirements.txt
+
+# pour creer une branche : 
+git checkout -b
+
+# se mettre sur une branche : 
+git checkout Apparence_based_testing
