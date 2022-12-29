@@ -9,3 +9,7 @@ sudo apt-get update
 sudo apt install python3.10-venv
 # pour créer un environnement : 
 python3 -m venv venv
+# pour activer et ecrire dans la venv : 
+source venv/bin/activate
+# pour installer les librairies des requirements
+nano requirements.txt
