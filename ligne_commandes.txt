@@ -19,3 +19,8 @@ git checkout -b
 
 # se mettre sur une branche : 
 git checkout Apparence_based_testing
+
+# ligne pratique pour trouver path fichier
+ROOT_DIR = os.getcwd()
+print(": wasa",ROOT_DIR)
+%pip install -r $ROOT_DIR/requirements.txt
