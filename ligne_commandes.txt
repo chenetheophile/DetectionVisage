@@ -16,6 +16,9 @@ nano requirements.txt
 # ou 
 pip install -r requirements.txt
 
+
+# pour updater le projet en local :
+git pull && git fetch
 # pour creer une branche : 
 git checkout -b
 
