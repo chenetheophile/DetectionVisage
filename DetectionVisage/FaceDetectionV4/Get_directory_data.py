@@ -3,4 +3,5 @@ path=r"/home/meatisdelicious/DetectionVisage/DetectionVisage/FaceDetectionV4/inp
 for root,dirs,files in os.walk(path):
     if dirs==[]:
         print(root+": "+str(len(files))+" files")
+        
 
